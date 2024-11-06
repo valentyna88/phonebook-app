@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const authInstance = axios.create({
@@ -10,3 +11,15 @@ export const setToken = (token) => {
 export const clearToken = () => {
   authInstance.defaults.headers.common.Authorization = "";
 };
+
+export const apiRegister = createAsyncThunk(
+  "auth/register",
+  async (formData, thunkAPI) => {
+    try {
+      const { data } = await authInstance.post("/users/signup", formData);
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
