@@ -1,4 +1,3 @@
-// import css from "./App.module.css";
 import ContactForm from "../component/ContactForm/ContactForm";
 import SearchBox from "../component/SearchBox/SearchBox";
 import ContactList from "../component/ContactList/ContactList";
@@ -17,7 +16,7 @@ const ContactsPage = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
   return (
-    <div className={css.container}>
+    <div>
       <h1 className={css.title}>Phonebook</h1>
       <ContactForm />
       <SearchBox />
