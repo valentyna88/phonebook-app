@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { apiRegister } from "./operations";
 
 const initialState = {
-  user: {
+  userData: {
     name: null,
     email: null,
   },
+  isLoading: false,
+  error: null,
   token: null,
   isLoggedIn: false,
   isRefreshing: null,
@@ -13,7 +16,22 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
-  reducers: {},
+  extraReducers: (builder) =>
+    builder
+      .addCase(apiRegister.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(apiRegister.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isLoggedIn = true;
+        state.token = action.payload.token;
+        state.userData = action.payload.user;
+      })
+      .addCase(apiRegister.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      }),
 });
 
 export const authReducer = authSlice.reducer;
