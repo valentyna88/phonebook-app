@@ -1,4 +1,4 @@
-import css from "./App.module.css";
+// import css from "./App.module.css";
 import ContactForm from "../component/ContactForm/ContactForm";
 import SearchBox from "../component/SearchBox/SearchBox";
 import ContactList from "../component/ContactList/ContactList";
