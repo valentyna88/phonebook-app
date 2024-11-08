@@ -2,15 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiLogin, apiRegister } from "./operations";
 
 const initialState = {
-  userData: {
-    name: null,
-    email: null,
-  },
+  userData: null,
   isLoading: false,
   error: null,
+
   token: null,
   isLoggedIn: false,
-  isRefreshing: null,
+  isRefreshing: false,
 };
 
 const authSlice = createSlice({
@@ -48,5 +46,12 @@ const authSlice = createSlice({
         state.error = action.payload;
       }),
 });
+
+export const selectUserData = (state) => state.auth.userData;
+export const selectUserDataIsLoading = (state) => state.auth.isLoading;
+export const selectUserDataError = (state) => state.auth.error;
+export const selectUserDataIsLoggedIn = (state) => state.auth.isLoggedIn;
+export const selectUserDataIsRefreshing = (state) => state.auth.isRefreshing;
+export const selectUserDataToken = (state) => state.auth.token;
 
 export const authReducer = authSlice.reducer;
