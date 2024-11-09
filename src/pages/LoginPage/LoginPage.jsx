@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
-import { apiLogin } from "../../redux/auth/operations";
+import { login } from "../../redux/auth/operations";
 import css from "./LoginPage.module.css";
 import { LoginUserSchema } from "../../utils/schemas";
 
@@ -14,7 +14,7 @@ const LoginPage = () => {
 
   const handleSubmit = (values, actions) => {
     console.log("values: ", values);
-    dispatch(apiLogin(values));
+    dispatch(login(values));
     actions.resetForm();
   };
 

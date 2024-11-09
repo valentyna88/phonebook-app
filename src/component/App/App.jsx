@@ -7,22 +7,21 @@ import LoginPage from "../../pages/LoginPage/LoginPage";
 import Navigation from "../Navigation/Navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { apiRefreshUser } from "../../redux/auth/operations";
+import { refreshUser } from "../../redux/auth/operations";
 import { selectUserDataIsRefreshing } from "../../redux/auth/slice";
+import Loader from "../Loader/Loader";
 
 const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectUserDataIsRefreshing);
 
   useEffect(() => {
-    dispatch(apiRefreshUser());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  if (isRefreshing) {
-    return <div>Refreshing...</div>;
-  }
-
-  return (
+  return isRefreshing ? (
+    <Loader />
+  ) : (
     <div className={css.container}>
       <Navigation />
       <Routes>

@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import css from "./RegistrationPage.module.css";
 import { RegisterUserSchema } from "../../utils/schemas";
 import { useDispatch } from "react-redux";
-import { apiRegister } from "../../redux/auth/operations";
+import { register } from "../../redux/auth/operations";
 
 const initialValues = {
   name: "",
@@ -15,7 +15,7 @@ const RegistrationPage = () => {
 
   const handleSubmit = (values, actions) => {
     console.log("values: ", values);
-    dispatch(apiRegister(values));
+    dispatch(register(values));
     actions.resetForm();
   };
 

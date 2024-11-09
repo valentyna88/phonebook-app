@@ -1,24 +1,24 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const authInstance = axios.create({
-  baseURL: "https://connections-api.goit.global/",
+  baseURL: 'https://connections-api.goit.global/',
 });
 
-export const setToken = (token) => {
+export const setToken = token => {
   authInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 export const clearToken = () => {
-  authInstance.defaults.headers.common.Authorization = "";
+  authInstance.defaults.headers.common.Authorization = '';
 };
 
-export const apiRegister = createAsyncThunk(
-  "auth/register",
+export const register = createAsyncThunk(
+  'auth/register',
   async (formData, thunkAPI) => {
     try {
-      const { data } = await authInstance.post("/users/signup", formData);
+      const { data } = await authInstance.post('/users/signup', formData);
       setToken(data.token);
-      console.log("data: ", data);
+      // console.log("data: ", data);
 
       return data;
     } catch (e) {
@@ -26,13 +26,14 @@ export const apiRegister = createAsyncThunk(
     }
   }
 );
-export const apiLogin = createAsyncThunk(
-  "auth/login",
+
+export const login = createAsyncThunk(
+  'auth/login',
   async (formData, thunkAPI) => {
     try {
-      const { data } = await authInstance.post("/users/login", formData);
+      const { data } = await authInstance.post('/users/login', formData);
       setToken(data.token);
-      console.log("data: ", data);
+      // console.log("data: ", data);
 
       return data;
     } catch (e) {
@@ -40,20 +41,21 @@ export const apiLogin = createAsyncThunk(
     }
   }
 );
-export const apiRefreshUser = createAsyncThunk(
-  "auth/refresh",
+
+export const refreshUser = createAsyncThunk(
+  'auth/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = state.auth.token;
 
     if (!token) {
-      return thunkAPI.rejectWithValue("No valid token to refresh user data");
+      return thunkAPI.rejectWithValue('No valid token to refresh user data');
     }
     try {
       setToken(token);
-      const { data } = await authInstance.get("/users/current");
+      const { data } = await authInstance.get('/users/current');
 
-      console.log("data: ", data);
+      console.log('data: ', data);
 
       return data;
     } catch (e) {
@@ -61,3 +63,15 @@ export const apiRefreshUser = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  try {
+    const { data } = await authInstance.post('/users/logout');
+    clearToken();
+    console.log('data: ', data);
+
+    return data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+});

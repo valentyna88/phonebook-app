@@ -1,17 +1,23 @@
-import { NavLink } from "react-router-dom";
-import css from "./Navigation.module.css";
-import clsx from "clsx";
-import { useSelector } from "react-redux";
+import { NavLink } from 'react-router-dom';
+import css from './Navigation.module.css';
+import clsx from 'clsx';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectUserData,
   selectUserDataIsLoggedIn,
-} from "../../redux/auth/slice";
+} from '../../redux/auth/slice';
+import { logout } from '../../redux/auth/operations';
 
 const buildLinkClass = ({ isActive }) => clsx(css.link, isActive && css.active);
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectUserDataIsLoggedIn);
   const userData = useSelector(selectUserData);
+
+  const onLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <header className={css.header}>
@@ -25,7 +31,9 @@ const Navigation = () => {
         {isLoggedIn ? (
           <div>
             <span>Hello, {userData.name}</span>
-            <button type="button">Logout</button>
+            <button onClick={onLogout} type="button">
+              Logout
+            </button>
           </div>
         ) : (
           <>
