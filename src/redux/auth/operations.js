@@ -40,3 +40,24 @@ export const apiLogin = createAsyncThunk(
     }
   }
 );
+export const apiRefreshUser = createAsyncThunk(
+  "auth/refresh",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+
+    if (!token) {
+      return thunkAPI.rejectWithValue("No valid token to refresh user data");
+    }
+    try {
+      setToken(token);
+      const { data } = await authInstance.get("/users/current");
+
+      console.log("data: ", data);
+
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
