@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiLogin, apiRegister } from "./operations";
+import { apiLogin, apiRefreshUser, apiRegister } from "./operations";
 
 const initialState = {
   userData: null,
@@ -43,6 +43,20 @@ const authSlice = createSlice({
       })
       .addCase(apiLogin.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(apiRefreshUser.pending, (state) => {
+        state.isRefreshing = true;
+        state.error = null;
+      })
+      .addCase(apiRefreshUser.fulfilled, (state, action) => {
+        state.isRefreshing = false;
+        state.isLoggedIn = true;
+        state.userData = action.payload;
+      })
+      .addCase(apiRefreshUser.rejected, (state, action) => {
+        state.isRefreshing = false;
         state.error = action.payload;
       }),
 });

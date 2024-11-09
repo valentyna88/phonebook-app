@@ -5,7 +5,7 @@ import Loader from "../component/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchContacts } from "../redux/contactsOps";
-import { selectError, selectIsLoading } from "../redux/contactsSlice";
+import { selectError, selectIsLoading } from "../redux/contacts/slice";
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
