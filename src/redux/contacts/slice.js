@@ -1,22 +1,11 @@
-// import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from '../contactsOps';
+import { selectNameFilter } from '../filtersSlice';
 
-// const INITIAL_STATE = {};
-
-// const contactsSlice = createSlice({
-//   name: "contacts",
-//   initialState: INITIAL_STATE,
-//   reducers: {},
-// });
-
-// export const contactsReducer = contactsSlice.reducer;
-import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, deleteContact } from "../contactsOps";
-import { selectNameFilter } from "../filtersSlice";
-
-export const selectContacts = (state) => state.contacts.items;
-export const selectIsLoading = (state) => state.contacts.isLoading;
-export const selectError = (state) => state.contacts.error;
+export const selectContacts = state => state.contacts.items;
+export const selectIsLoading = state => state.contacts.isLoading;
+export const selectError = state => state.contacts.error;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
@@ -24,7 +13,7 @@ export const selectFilteredContacts = createSelector(
     if (!filter) {
       return contacts;
     }
-    return contacts.filter((contact) =>
+    return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   }
@@ -36,7 +25,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-const handlePending = (state) => {
+const handlePending = state => {
   state.isLoading = true;
 };
 
@@ -46,9 +35,9 @@ const handleRejected = (state, action) => {
 };
 
 const contactsSlice = createSlice({
-  name: "contacts",
+  name: 'contacts',
   initialState: INITIAL_STATE,
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, (state, action) => {
@@ -69,7 +58,7 @@ const contactsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         const index = state.items.findIndex(
-          (contact) => contact.id === action.payload.id
+          contact => contact.id === action.payload.id
         );
         state.items.splice(index, 1);
       })
