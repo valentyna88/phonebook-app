@@ -4,7 +4,7 @@ import ContactList from '../components/ContactList/ContactList';
 import Loader from '../components/Loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchContacts } from '../redux/contactsOps';
+import { fetchContacts } from '../redux/contacts/operations';
 import { selectError, selectIsLoading } from '../redux/contacts/slice';
 
 const ContactsPage = () => {

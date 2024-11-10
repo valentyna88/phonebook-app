@@ -1,33 +1,33 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-import css from "./ContactForm.module.css";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
+import css from './ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contacts/operations';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, "Too short!")
-    .max(50, "Name must be less than 50 characters")
-    .required("Required"),
+    .min(3, 'Too short!')
+    .max(50, 'Name must be less than 50 characters')
+    .required('Required'),
   number: Yup.string()
-    .matches(/^\d{3}-\d{2}-\d{2}$/, "Phone number format: xxx-xx-xx")
-    .required("Required"),
+    .matches(/^\d{3}-\d{2}-\d{2}$/, 'Phone number format: xxx-xx-xx')
+    .required('Required'),
 });
 
-const formatPhoneNumber = (value) => {
-  const cleaned = value.replace(/\D/g, "");
+const formatPhoneNumber = value => {
+  const cleaned = value.replace(/\D/g, '');
   const match = cleaned.match(/^(\d{0,3})(\d{0,2})(\d{0,2})$/);
 
   if (match) {
-    return [match[1], match[2], match[3]].filter(Boolean).join("-");
+    return [match[1], match[2], match[3]].filter(Boolean).join('-');
   }
   return value;
 };
 
 const INITIAL_VALUES = {
-  name: "",
-  number: "",
+  name: '',
+  number: '',
 };
 
 const ContactForm = () => {
@@ -67,9 +67,9 @@ const ContactForm = () => {
               <input
                 {...field}
                 className={css.field}
-                onChange={(e) => {
+                onChange={e => {
                   const formattedNumber = formatPhoneNumber(e.target.value);
-                  form.setFieldValue("number", formattedNumber);
+                  form.setFieldValue('number', formattedNumber);
                 }}
               />
             )}
