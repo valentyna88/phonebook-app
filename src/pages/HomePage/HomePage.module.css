@@ -21,10 +21,6 @@
   margin-right: 10px;
 }
 
-.iconShield {
-  color: #4a90e2;
-}
-
 .description {
   font-size: 18px;
   text-align: center;
@@ -44,17 +40,28 @@
   margin-bottom: 10px;
 }
 
-.authButton {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #4a90e2;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.buttonGroup {
+  display: flex;
+  gap: 15px;
 }
 
-.authButton:hover {
-  background-color: #357ab8;
+.loginButton,
+.registerButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.loginButton:hover,
+.registerButton:hover {
+  background-color: #0056b3;
+}
+
+.buttonIcon {
+  margin-right: 8px;
 }
