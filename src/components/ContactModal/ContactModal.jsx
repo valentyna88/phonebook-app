@@ -4,7 +4,6 @@ import { editContact } from '../../redux/contacts/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { MdPerson, MdPhone } from 'react-icons/md';
-import clsx from 'clsx';
 import {
   selectActiveContact,
   selectEditModalIsOpen,
@@ -17,7 +16,6 @@ Modal.setAppElement('#root');
 
 const ContactModal = () => {
   const dispatch = useDispatch();
-
   const contactEdit = useSelector(selectActiveContact);
   const isOpen = useSelector(selectEditModalIsOpen);
 
@@ -65,16 +63,16 @@ const ContactModal = () => {
         <Form className={css.contactBox}>
           <label className={css.label}>
             <MdPerson size={30} />
-            <Field className={css.input} name="name" type="text"></Field>
+            <Field className={css.input} name="name" type="text" />
           </label>
           <ErrorMessage className={css.error} name="name" component="span" />
           <label className={css.label}>
             <MdPhone size={30} />
-            <Field className={css.input} name="number" type="text"></Field>
+            <Field className={css.input} name="number" type="text" />
           </label>
           <ErrorMessage className={css.error} name="number" component="span" />
           <div className={css.btnWrapper}>
-            <button type="submit" className={clsx(css.editBtn, css.btn)}>
+            <button type="submit" className={css.editBtn}>
               Save
             </button>
             <button

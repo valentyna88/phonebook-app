@@ -1,16 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { MdPerson, MdPhone } from 'react-icons/md';
-import { deleteContact } from '../../redux/contacts/operations';
+import { openDeleteModal, openEditModal } from '../../redux/modal/slice';
 import css from './Contact.module.css';
-import { openEditModal } from '../../redux/modal/slice';
 import clsx from 'clsx';
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteContact(contact.id));
+    dispatch(openDeleteModal(contact));
   };
+
   const handleEditModal = () => {
     dispatch(openEditModal(contact));
   };
