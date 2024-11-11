@@ -1,16 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
-import css from './App.module.css';
-
+import { refreshUser } from '../../redux/auth/operations';
+import { selectUserDataIsRefreshing } from '../../redux/auth/slice';
 import PrivateRoute from '../PrivateRoute';
 import RestrictedRoute from '../RestrictedRoute';
 import Navigation from '../Navigation/Navigation';
 import Loader from '../Loader/Loader';
-
-import { refreshUser } from '../../redux/auth/operations';
-import { selectUserDataIsRefreshing } from '../../redux/auth/slice';
+import css from './App.module.css';
 
 const HomePage = lazy(() => import('../../pages/HomePage'));
 const ContactsPage = lazy(() => import('../../pages/ContactsPage'));

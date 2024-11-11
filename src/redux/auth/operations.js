@@ -18,8 +18,6 @@ export const register = createAsyncThunk(
     try {
       const { data } = await authInstance.post('/users/signup', formData);
       setToken(data.token);
-      // console.log("data: ", data);
-
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -33,8 +31,6 @@ export const login = createAsyncThunk(
     try {
       const { data } = await authInstance.post('/users/login', formData);
       setToken(data.token);
-      // console.log("data: ", data);
-
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -54,9 +50,6 @@ export const refreshUser = createAsyncThunk(
     try {
       setToken(token);
       const { data } = await authInstance.get('/users/current');
-
-      // console.log('data: ', data);
-
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -68,8 +61,6 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     const { data } = await authInstance.post('/users/logout');
     clearToken();
-    // console.log('data: ', data);
-
     return data;
   } catch (e) {
     return thunkAPI.rejectWithValue(e.message);
