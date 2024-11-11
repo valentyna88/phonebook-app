@@ -55,7 +55,7 @@ export const refreshUser = createAsyncThunk(
       setToken(token);
       const { data } = await authInstance.get('/users/current');
 
-      console.log('data: ', data);
+      // console.log('data: ', data);
 
       return data;
     } catch (e) {
@@ -68,7 +68,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     const { data } = await authInstance.post('/users/logout');
     clearToken();
-    console.log('data: ', data);
+    // console.log('data: ', data);
 
     return data;
   } catch (e) {

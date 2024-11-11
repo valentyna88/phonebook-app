@@ -20,7 +20,12 @@ const ContactsPage = () => {
       <h1>Phonebook</h1>
       <ContactForm />
       <SearchBox />
-      {isLoading && !error && <Loader />}
+      {isLoading && <Loader />}
+      {error && (
+        <p>
+          Oops, some error occured &quot;{error}&quot;. Please, try again later.
+        </p>
+      )}
       <ContactList />
     </div>
   );
