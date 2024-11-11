@@ -1,24 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { deleteContact, fetchContacts } from '../redux/contacts/operations';
-import { selectError, selectIsLoading } from '../redux/contacts/selectors';
+import {
+  selectEditModalIsOpen,
+  selectError,
+  selectIsLoading,
+} from '../redux/contacts/selectors';
 import ContactForm from '../components/ContactForm/ContactForm';
 import SearchBox from '../components/SearchBox/SearchBox';
 import ContactList from '../components/ContactList/ContactList';
 import Loader from '../components/Loader/Loader';
 import DocumentTitle from '../components/DocumentTitle';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal/ConfirmDeleteModal';
+import ContactModal from '../components/ContactModal/ContactModal'; // імпортуємо ContactModal
 import {
   selectDeleteModalIsOpen,
   selectActiveContact,
-} from '../redux/modal/selectors';
-import { closeDeleteModal } from '../redux/modal/slice';
+} from '../redux/contacts/selectors';
+import { closeDeleteModal, closeEditModal } from '../redux/contacts/slice';
 import { toast } from 'react-hot-toast';
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
+  const isEditModalOpen = useSelector(selectEditModalIsOpen);
   const isDeleteModalOpen = useSelector(selectDeleteModalIsOpen);
   const activeContact = useSelector(selectActiveContact);
 
@@ -38,6 +44,10 @@ const ContactsPage = () => {
         });
     }
     dispatch(closeDeleteModal());
+  };
+
+  const handleCloseEditModal = () => {
+    dispatch(closeEditModal()); // Закриваємо модалку редагування
   };
 
   const titleStyle = {
@@ -61,10 +71,19 @@ const ContactsPage = () => {
         </p>
       )}
       <ContactList />
+
+      {/* Модалка для підтвердження видалення */}
       <ConfirmDeleteModal
         isOpen={isDeleteModalOpen && activeContact !== null} // Модалка відкривається, тільки якщо є активний контакт
         onRequestClose={() => dispatch(closeDeleteModal())} // Закриваємо модалку
         onConfirm={handleDelete} // Підтверджуємо видалення
+      />
+
+      {/* Модалка для редагування контакту */}
+      <ContactModal
+        isOpen={isEditModalOpen && activeContact !== null} // Відкриваємо, якщо модалка відкрита та є активний контакт
+        onRequestClose={handleCloseEditModal} // Закриваємо модалку
+        contact={activeContact} // Передаємо активний контакт в модалку
       />
     </div>
   );

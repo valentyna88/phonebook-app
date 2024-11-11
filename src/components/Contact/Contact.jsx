@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { MdPerson, MdPhone } from 'react-icons/md';
-import { openDeleteModal, openEditModal } from '../../redux/modal/slice';
+import { openDeleteModal, openEditModal } from '../../redux/contacts/slice';
 import css from './Contact.module.css';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const Contact = ({ contact }) => {
     dispatch(openDeleteModal(contact));
   };
 
-  const handleEditModal = () => {
+  const handleEditClick = () => {
     dispatch(openEditModal(contact));
   };
 
@@ -27,11 +27,7 @@ const Contact = ({ contact }) => {
           {contact.number}
         </p>
       </div>
-      <button
-        type="button"
-        className={clsx(css.btn, css.editBtn)}
-        onClick={handleEditModal}
-      >
+      <button type="button" className={css.btn} onClick={handleEditClick}>
         Edit
       </button>
       <button type="button" className={css.btn} onClick={handleDelete}>
