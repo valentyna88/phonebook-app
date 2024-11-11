@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { refreshUser } from '../../redux/auth/operations';
-import { selectUserDataIsRefreshing } from '../../redux/auth/slice';
+import { selectIsRefreshing } from '../../redux/auth/selectors';
 import PrivateRoute from '../PrivateRoute';
 import RestrictedRoute from '../RestrictedRoute';
 import Loader from '../Loader/Loader';
@@ -18,7 +18,7 @@ const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
 
 const App = () => {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectUserDataIsRefreshing);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
     dispatch(refreshUser());

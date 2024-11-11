@@ -11,54 +11,46 @@ const initialState = {
   isRefreshing: false,
 };
 
+const handlePending = state => {
+  state.isLoading = true;
+  state.error = null;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   extraReducers: builder =>
     builder
-      .addCase(register.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
+      .addCase(register.pending, handlePending)
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
         state.token = action.payload.token;
         state.userData = action.payload.user;
       })
-      .addCase(register.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
+      .addCase(register.rejected, handleRejected)
 
-      .addCase(login.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
+      .addCase(login.pending, handlePending)
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
         state.token = action.payload.token;
         state.userData = action.payload.user;
       })
-      .addCase(login.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
+      .addCase(login.rejected, handleRejected)
 
-      .addCase(refreshUser.pending, state => {
-        state.isRefreshing = true;
-        state.error = null;
-      })
+      .addCase(refreshUser.pending, handlePending)
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.isRefreshing = false;
         state.isLoggedIn = true;
         state.userData = action.payload;
       })
-      .addCase(refreshUser.rejected, (state, action) => {
-        state.isRefreshing = false;
-        state.error = action.payload;
-      })
+      .addCase(refreshUser.rejected, handleRejected)
 
       .addCase(logout.pending, state => {
         state.isLoading = true;
@@ -72,12 +64,5 @@ const authSlice = createSlice({
         state.error = action.payload;
       }),
 });
-
-export const selectUserData = state => state.auth.userData;
-export const selectUserDataIsLoading = state => state.auth.isLoading;
-export const selectUserDataError = state => state.auth.error;
-export const selectUserDataIsLoggedIn = state => state.auth.isLoggedIn;
-export const selectUserDataIsRefreshing = state => state.auth.isRefreshing;
-export const selectUserDataToken = state => state.auth.token;
 
 export const authReducer = authSlice.reducer;
