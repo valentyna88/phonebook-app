@@ -31,15 +31,21 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route
           path="/contacts"
-          element={<PrivateRoute component={<ContactsPage />} />}
+          element={
+            <PrivateRoute component={<ContactsPage />} redirectTo="/login" />
+          }
         />
         <Route
           path="/register"
-          element={<RestrictedRoute component={<RegistrationPage />} />}
+          element={
+            <RestrictedRoute component={<RegistrationPage />} redirectTo="/" />
+          }
         />
         <Route
           path="/login"
-          element={<RestrictedRoute component={<LoginPage />} />}
+          element={
+            <RestrictedRoute component={<LoginPage />} redirectTo="/contacts" />
+          }
         />
       </Routes>
     </Layout>

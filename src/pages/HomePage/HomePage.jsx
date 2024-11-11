@@ -2,8 +2,12 @@ import { FaAddressBook, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 import DocumentTitle from '../../components/DocumentTitle';
 import css from './HomePage.module.css';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 
 const HomePage = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   return (
     <>
       <DocumentTitle>Home</DocumentTitle>
@@ -18,14 +22,18 @@ const HomePage = () => {
         </p>
         <div className={css.callToAction}>
           <p className={css.callToActionText}>Join us now to get started!</p>
-          <div className={css.buttonGroup}>
-            <NavLink to="/login" className={css.loginButton}>
-              <FaSignInAlt className={css.buttonIcon} /> Log In
-            </NavLink>
-            <NavLink to="/register" className={css.registerButton}>
-              <FaUserPlus className={css.buttonIcon} /> Sign Up
-            </NavLink>
-          </div>
+
+          {/* Умовний рендеринг кнопок */}
+          {!isLoggedIn && (
+            <div className={css.buttonGroup}>
+              <NavLink to="/login" className={css.loginButton}>
+                <FaSignInAlt className={css.buttonIcon} /> Log In
+              </NavLink>
+              <NavLink to="/register" className={css.registerButton}>
+                <FaUserPlus className={css.buttonIcon} /> Sign Up
+              </NavLink>
+            </div>
+          )}
         </div>
       </div>
     </>

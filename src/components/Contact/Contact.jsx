@@ -14,11 +14,11 @@ const Contact = ({ contact }) => {
     <div className={css.container}>
       <div>
         <p className={css.contactInfo}>
-          <MdPerson />
+          <MdPerson className={css.icon} />
           {contact.name}
         </p>
         <p className={css.contactInfo}>
-          <MdPhone />
+          <MdPhone className={css.icon} />
           {contact.number}
         </p>
       </div>

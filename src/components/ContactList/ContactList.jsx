@@ -9,12 +9,14 @@ const ContactList = () => {
   return (
     <ul className={css.list}>
       {Array.isArray(filteredContacts) && filteredContacts.length === 0 && (
-        <p>There are no contacts in your phonebook yet!</p>
+        <p className={css.noContacts}>
+          There are no contacts in your phonebook yet!
+        </p>
       )}
       {Array.isArray(filteredContacts) &&
         filteredContacts.length > 0 &&
         filteredContacts.map(contact => (
-          <li key={contact.id}>
+          <li key={contact.id} className={css.contactItem}>
             <Contact contact={contact} />
           </li>
         ))}

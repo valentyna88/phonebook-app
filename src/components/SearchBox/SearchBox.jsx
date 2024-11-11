@@ -9,14 +9,16 @@ const SearchBox = () => {
 
   const handleFilterChange = event =>
     dispatch(changeFilter(event.target.value));
+
   return (
     <div className={css.wrapper}>
-      <label>Find contacts by name</label>
+      <label className={css.label}>Find contacts by name</label>
       <input
         className={css.field}
         type="text"
         value={filter}
         onChange={handleFilterChange}
+        placeholder="Enter name..."
       />
     </div>
   );
