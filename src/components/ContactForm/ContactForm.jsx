@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contacts/operations';
-import { AddContactSchema } from '../../utils/schemas.js';
+import { ContactSchema } from '../../utils/schemas.js';
 import { formatPhoneNumber } from '../../utils/schemas.js';
 import css from './ContactForm.module.css';
 
@@ -21,7 +21,7 @@ const ContactForm = () => {
   return (
     <Formik
       initialValues={INITIAL_VALUES}
-      validationSchema={AddContactSchema}
+      validationSchema={ContactSchema}
       onSubmit={handleSubmit}
     >
       <Form className={css.form}>

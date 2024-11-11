@@ -22,7 +22,7 @@ export const LoginUserSchema = Yup.object({
     .required('Password is required'),
 });
 
-export const AddContactSchema = Yup.object().shape({
+export const ContactSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, 'Too short!')
     .max(50, 'Name must be less than 50 characters')

@@ -1,0 +1,66 @@
+.modalEdit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+.overlayEdit {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(91, 87, 87, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contactBox {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.error {
+  color: red;
+  font-size: 14px;
+}
+.btnWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.btn {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.editBtn {
+  background-color: #4caf50;
+  color: white;
+}
+.cancelBtn {
+  background-color: #f44336;
+  color: white;
+}
