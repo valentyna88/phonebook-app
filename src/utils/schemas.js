@@ -32,12 +32,12 @@ export const ContactSchema = Yup.object().shape({
     .required('Required'),
 });
 
-export const formatPhoneNumber = value => {
-  const cleaned = value.replace(/\D/g, '');
-  const match = cleaned.match(/^(\d{0,3})(\d{0,2})(\d{0,2})$/);
+// export const formatPhoneNumber = value => {
+//   const cleaned = value.replace(/\D/g, '');
+//   const match = cleaned.match(/^(\d{0,3})(\d{0,2})(\d{0,2})$/);
 
-  if (match) {
-    return [match[1], match[2], match[3]].filter(Boolean).join('-');
-  }
-  return value;
-};
+//   if (match) {
+//     return [match[1], match[2], match[3]].filter(Boolean).join('-');
+//   }
+//   return value;
+// };

@@ -1,38 +1,44 @@
 import { useDispatch } from 'react-redux';
-import { MdPerson, MdPhone } from 'react-icons/md';
-import { openDeleteModal, openEditModal } from '../../redux/contacts/slice';
+import {
+  MdDeleteOutline,
+  MdOutlineEdit,
+  MdPerson,
+  MdPhone,
+} from 'react-icons/md';
+import { openModal, openEditModal } from '../../redux/contacts/slice';
 import css from './Contact.module.css';
-// import clsx from 'clsx';
 
 const Contact = ({ contact }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(openDeleteModal(contact));
+    dispatch(openModal(contact.id));
   };
 
-  const handleEditClick = () => {
+  const handleEdit = () => {
     dispatch(openEditModal(contact));
   };
 
   return (
     <div className={css.container}>
-      <div>
-        <p className={css.contactInfo}>
-          <MdPerson className={css.icon} />
+      <div className={css.contactInfo}>
+        <p className={css.text}>
+          <MdPerson />
           {contact.name}
         </p>
-        <p className={css.contactInfo}>
-          <MdPhone className={css.icon} />
+        <p className={css.text}>
+          <MdPhone />
           {contact.number}
         </p>
       </div>
-      <button type="button" className={css.btn} onClick={handleEditClick}>
-        Edit
-      </button>
-      <button type="button" className={css.btn} onClick={handleDelete}>
-        Delete
-      </button>
+      <div className={css.btnContainer}>
+        <button className={css.btn} onClick={handleEdit}>
+          Edit <MdOutlineEdit size={16} />
+        </button>
+        <button className={css.btn} onClick={handleDelete}>
+          Delete <MdDeleteOutline size={16} />
+        </button>
+      </div>
     </div>
   );
 };

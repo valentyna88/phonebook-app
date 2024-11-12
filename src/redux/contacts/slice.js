@@ -3,17 +3,8 @@ import {
   fetchContacts,
   addContact,
   deleteContact,
-  editContact,
+  updateContact,
 } from './operations';
-
-const INITIAL_STATE = {
-  items: null,
-  isLoading: false,
-  error: null,
-  editModalIsOpen: false,
-  activeContact: null,
-  deleteModalIsOpen: false,
-};
 
 const handlePending = state => {
   state.isLoading = true;
@@ -27,67 +18,79 @@ const handleRejected = (state, action) => {
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: INITIAL_STATE,
+  initialState: {
+    items: [],
+    loading: false,
+    error: null,
+    isModalOpen: false,
+    contactIdToDelete: null,
+    isEditModalOpen: false,
+    contactToEdit: null,
+  },
   reducers: {
-    openEditModal: (state, action) => {
-      state.editModalIsOpen = true;
-      state.activeContact = action.payload;
+    openModal(state, action) {
+      state.isModalOpen = true;
+      state.contactIdToDelete = action.payload;
     },
-    closeEditModal: state => {
-      state.editModalIsOpen = false;
-      state.activeContact = null;
+    closeModal(state) {
+      state.isModalOpen = false;
+      state.contactIdToDelete = null;
     },
-    openDeleteModal: (state, action) => {
-      state.deleteModalIsOpen = true;
-      state.activeContact = action.payload;
+    openEditModal(state, action) {
+      state.isEditModalOpen = true;
+      state.contactToEdit = action.payload;
     },
-    closeDeleteModal: state => {
-      state.deleteModalIsOpen = false;
-      state.activeContact = null;
+    closeEditModal(state) {
+      state.isEditModalOpen = false;
+      state.contactToEdit = null;
     },
   },
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.loading = false;
+        state.error = null;
         state.items = action.payload;
       })
       .addCase(fetchContacts.rejected, handleRejected)
       .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.loading = false;
+        state.error = null;
         state.items.push(action.payload);
       })
       .addCase(addContact.rejected, handleRejected)
       .addCase(deleteContact.pending, handlePending)
       .addCase(deleteContact.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.loading = false;
+        state.error = null;
         const index = state.items.findIndex(
           contact => contact.id === action.payload.id
         );
         state.items.splice(index, 1);
+        state.isModalOpen = false;
+        state.contactIdToDelete = null;
       })
       .addCase(deleteContact.rejected, handleRejected)
-      .addCase(editContact.pending, handlePending)
-      .addCase(editContact.fulfilled, (state, action) => {
+      .addCase(updateContact.pending, handlePending)
+      .addCase(updateContact.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
         const index = state.items.findIndex(
-          item => item.id === action.payload.id
+          contact => contact.id === action.payload.id
         );
         if (index !== -1) {
           state.items[index] = action.payload;
         }
-        state.isLoading = false; // Заміна state.loading на state.isLoading
+        state.isModalOpen = false;
+        state.contactIdToDelete = null;
       })
-      .addCase(editContact.rejected, handleRejected);
+      .addCase(updateContact.rejected, handleRejected);
   },
 });
 
-export const {
-  openEditModal,
-  closeEditModal,
-  openDeleteModal,
-  closeDeleteModal,
-} = contactsSlice.actions;
+export const { openModal, closeModal, openEditModal, closeEditModal } =
+  contactsSlice.actions;
 
 export const contactsReducer = contactsSlice.reducer;

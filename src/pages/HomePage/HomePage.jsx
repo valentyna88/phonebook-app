@@ -22,8 +22,6 @@ const HomePage = () => {
         </p>
         <div className={css.callToAction}>
           <p className={css.callToActionText}>Join us now to get started!</p>
-
-          {/* Умовний рендеринг кнопок */}
           {!isLoggedIn && (
             <div className={css.buttonGroup}>
               <NavLink to="/login" className={css.loginButton}>

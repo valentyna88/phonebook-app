@@ -1,19 +1,19 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/auth/operations";
-import css from "./LoginPage.module.css";
-import { LoginUserSchema } from "../../utils/schemas";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/auth/operations';
+import css from './LoginPage.module.css';
+import { LoginUserSchema } from '../../utils/schemas';
 
 const initialValues = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 const LoginPage = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    console.log("values: ", values);
+    console.log('values: ', values);
     dispatch(login(values));
     actions.resetForm();
   };
@@ -53,7 +53,9 @@ const LoginPage = () => {
             component="span"
           />
         </label>
-        <button type="submit">Sign In</button>
+        <button type="submit" className={css.btn}>
+          Sign In
+        </button>
       </Form>
     </Formik>
   );

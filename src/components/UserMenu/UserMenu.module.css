@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Arial', sans-serif;
 }
 
 .username {
@@ -14,7 +13,7 @@
 .btn {
   display: flex;
   align-items: center;
-  background-color: #f44336;
+  background-color: #2196f3;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -22,10 +21,11 @@
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .btn:hover {
-  background-color: #d32f2f;
+  background-color: #005f99;
 }
 
 .icon {

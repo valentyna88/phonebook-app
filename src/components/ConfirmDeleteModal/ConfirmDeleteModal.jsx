@@ -9,13 +9,18 @@ const ConfirmDeleteModal = ({ isOpen, onRequestClose, onConfirm }) => {
       onRequestClose={onRequestClose}
       ariaHideApp={false}
     >
-      <h2 className={css.modalTitle}>Delete Contact?</h2>
-      <p className={css.modalDescription}>
-        Are you sure you want to remove this contact from your list?
+      <h2 className={css.title}>Confirm Deletion</h2>
+      <p className={css.text}>
+        Are you sure you want to permanently delete this contact? This action
+        cannot be undone.
       </p>
-      <div className={css.modalBtnWrapper}>
-        <button onClick={onRequestClose}>Cancel</button>
-        <button onClick={onConfirm}>Yes, Delete</button>
+      <div className={css.btnWrapper}>
+        <button className={css.btn} onClick={onRequestClose}>
+          No, keep it
+        </button>
+        <button className={css.btn} onClick={onConfirm}>
+          Yes, delete it
+        </button>
       </div>
     </Modal>
   );

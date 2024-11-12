@@ -1,20 +1,20 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import css from "./RegistrationPage.module.css";
-import { RegisterUserSchema } from "../../utils/schemas";
-import { useDispatch } from "react-redux";
-import { register } from "../../redux/auth/operations";
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import css from './RegisterPage.module.css';
+import { RegisterUserSchema } from '../../utils/schemas';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/auth/operations';
 
 const initialValues = {
-  name: "",
-  email: "",
-  password: "",
+  name: '',
+  email: '',
+  password: '',
 };
 
-const RegistrationPage = () => {
+const RegisterPage = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    console.log("values: ", values);
+    console.log('values: ', values);
     dispatch(register(values));
     actions.resetForm();
   };
@@ -68,10 +68,12 @@ const RegistrationPage = () => {
             component="span"
           />
         </label>
-        <button type="submit">Sign Up</button>
+        <button type="submit" className={css.btn}>
+          Sign Up
+        </button>
       </Form>
     </Formik>
   );
 };
 
-export default RegistrationPage;
+export default RegisterPage;

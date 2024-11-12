@@ -1,27 +1,68 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  openModal,
+  closeModal,
+  closeEditModal,
+} from '../../redux/contacts/slice';
 import { selectFilteredContacts } from '../../redux/contacts/selectors';
+import { deleteContact } from '../../redux/contacts/operations';
+import { Toaster } from 'react-hot-toast';
 import Contact from '../Contact/Contact';
+import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+import EditContactModal from '../EditContactModal/EditContactModal';
 import css from './ContactList.module.css';
 
-const ContactList = () => {
-  const filteredContacts = useSelector(selectFilteredContacts);
+export default function ContactList() {
+  const visibleContacts = useSelector(selectFilteredContacts);
+  const dispatch = useDispatch();
+
+  const isModalOpen = useSelector(state => state.contacts.isModalOpen);
+
+  const contactIdToDelete = useSelector(
+    state => state.contacts.contactIdToDelete
+  );
+
+  const isEditModalOpen = useSelector(state => state.contacts.isEditModalOpen);
+
+  const handleDeleteClick = contactId => {
+    if (isEditModalOpen) {
+      dispatch(closeEditModal());
+    }
+    if (!isModalOpen) {
+      dispatch(openModal(contactId));
+    }
+  };
+
+  const confirmDelete = () => {
+    dispatch(deleteContact(contactIdToDelete));
+    handleCloseModal();
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
 
   return (
-    <ul className={css.list}>
-      {Array.isArray(filteredContacts) && filteredContacts.length === 0 && (
-        <p className={css.noContacts}>
-          There are no contacts in your phonebook yet!
-        </p>
-      )}
-      {Array.isArray(filteredContacts) &&
-        filteredContacts.length > 0 &&
-        filteredContacts.map(contact => (
+    <>
+      <ul className={css.list}>
+        {Array.isArray(visibleContacts) && visibleContacts.length === 0 && (
+          <p className={css.noContacts}>
+            There are no contacts in your phonebook yet!
+          </p>
+        )}
+        {visibleContacts.map(contact => (
           <li key={contact.id} className={css.contactItem}>
-            <Contact contact={contact} />
+            <Contact contact={contact} onDeleteClick={handleDeleteClick} />
           </li>
         ))}
-    </ul>
+      </ul>
+      <ConfirmDeleteModal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        onConfirm={confirmDelete}
+      />
+      <Toaster />
+      <EditContactModal />
+    </>
   );
-};
-
-export default ContactList;
+}

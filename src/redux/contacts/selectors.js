@@ -2,22 +2,23 @@ import { createSelector } from '@reduxjs/toolkit';
 import { selectNameFilter } from '../filters/selectors';
 
 export const selectContacts = state => state.contacts.items;
-export const selectIsLoading = state => state.contacts.isLoading;
-export const selectError = state => state.contacts.error;
 
-export const selectActiveContact = state => state.contacts.activeContact;
-export const selectEditModalIsOpen = state => state.contacts.editModalIsOpen;
-export const selectDeleteModalIsOpen = state =>
-  state.contacts.deleteModalIsOpen;
+export const selectLoading = state => state.contacts.loading;
+
+export const selectError = state => state.contacts.error;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
-  (contacts, filter) => {
-    if (!filter) {
+  (contacts, nameFilter) => {
+    if (!nameFilter) {
       return contacts;
     }
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
+    return contacts.filter(contact => {
+      const nameMatches = contact.name
+        .toLowerCase()
+        .includes(nameFilter.toLowerCase());
+      const numberMatches = contact.number.includes(nameFilter.toLowerCase());
+      return nameMatches || numberMatches;
+    });
   }
 );

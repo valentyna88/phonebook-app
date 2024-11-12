@@ -1,6 +1,8 @@
 .list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
+  justify-content: center;
+  align-items: center;
   gap: 15px;
 }
 
@@ -13,27 +15,4 @@
   padding: 10px;
   border-radius: 6px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.contactItem {
-  width: 500px;
-  margin: 0 auto;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.contactItem:hover {
-  transform: scale(1.01);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.13);
-}
-
-.contactItem:nth-child(even) {
-  background-color: #f9fafb;
-}
-
-.contactItem:nth-child(odd) {
-  background-color: #ffffff;
-}
-
-.contactItem:last-child {
-  margin-bottom: 10px;
 }
