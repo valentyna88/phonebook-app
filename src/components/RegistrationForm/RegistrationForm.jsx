@@ -1,8 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import css from './RegisterPage.module.css';
 import { RegisterUserSchema } from '../../utils/schemas';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
+import css from './RegistrationForm.module.css';
 
 const initialValues = {
   name: '',
@@ -10,7 +10,7 @@ const initialValues = {
   password: '',
 };
 
-const RegisterPage = () => {
+const RegistrationForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
@@ -76,4 +76,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default RegistrationForm;
