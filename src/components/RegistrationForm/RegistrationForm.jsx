@@ -1,7 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { RegisterUserSchema } from '../../utils/schemas';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { register } from '../../redux/auth/operations';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import css from './RegistrationForm.module.css';
 
 const initialValues = {
@@ -12,11 +14,16 @@ const initialValues = {
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handleSubmit = (values, actions) => {
     console.log('values: ', values);
     dispatch(register(values));
     actions.resetForm();
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -56,12 +63,22 @@ const RegistrationForm = () => {
         </label>
         <label className={css.label}>
           <span>Password:</span>
-          <Field
-            type="password"
-            name="password"
-            className={css.input}
-            placeholder="Enter your password"
-          />
+          <div className={css.passwordField}>
+            <Field
+              type={isPasswordVisible ? 'text' : 'password'}
+              name="password"
+              className={css.input}
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className={css.eyeButton}
+              aria-label={isPasswordVisible ? 'Hide password' : 'Show password'}
+            >
+              {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
           <ErrorMessage
             className={css.errorMessage}
             name="password"

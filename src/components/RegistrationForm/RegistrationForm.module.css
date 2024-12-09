@@ -29,6 +29,21 @@
 .input:focus {
   border-color: #2196f3;
 }
+.passwordField {
+  position: relative;
+}
+
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
 .errorMessage {
   color: #f44336;
   font-size: 14px;
