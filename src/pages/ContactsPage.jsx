@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContacts } from '../redux/contacts/operations';
 import { selectLoading, selectError } from '../redux/contacts/selectors';
+import DocumentTitle from '../components/DocumentTitle';
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
@@ -25,7 +26,8 @@ export default function ContactsPage() {
   };
 
   return (
-    <div>
+    <>
+      <DocumentTitle>Contacts</DocumentTitle>
       <div>
         <h1 style={titleStyles}>Phonebook</h1>
         <ContactForm />
@@ -33,6 +35,6 @@ export default function ContactsPage() {
         {loading && !error && <Loader />}
       </div>
       <ContactList />
-    </div>
+    </>
   );
 }

@@ -19,7 +19,6 @@ const UserMenu = () => {
         onClick={() => dispatch(logOut())}
       >
         <FaSignOutAlt className={css.icon} />
-        Logout
       </button>
     </div>
   );
