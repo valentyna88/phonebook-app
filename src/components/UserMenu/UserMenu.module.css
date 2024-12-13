@@ -8,8 +8,9 @@
 
 .username {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1rem;
   color: #333;
+  text-align: center;
 }
 
 .btn {
@@ -38,5 +39,8 @@
   .wrapper {
     flex-direction: row;
     justify-content: flex-end;
+  }
+  .username {
+    font-size: 1.125rem;
   }
 }
